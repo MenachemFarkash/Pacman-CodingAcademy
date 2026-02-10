@@ -1,0 +1,33 @@
+body {
+  background-color: black;
+  color: white;
+  text-align: center;
+}
+
+.game-container {
+  width: 100%;
+}
+
+table {
+  margin: 50px auto;
+  border-collapse: collapse;
+}
+
+.cell {
+  width: 25px;
+  height: 25px;
+}
+
+.wall {
+  background-color: #16889a;
+}
+
+.ghost-house {
+  background-color: rgb(17, 17, 17);
+}
+
+.cell > img {
+  display: block;
+  margin: auto;
+  width: 25px;
+}

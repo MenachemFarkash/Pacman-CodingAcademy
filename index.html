@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/main.css" />
+
+    <title>Document</title>
+  </head>
+  <body onkeydown="changeDirection(event)">
+    <section>
+      <h1>PACMAN</h1>
+      <h2>SCORE: <span>0</span></h2>
+    </section>
+    <section class="game-container">
+      <table>
+        <tbody>
+          <tr>
+            <td class="cell"><img src="images/ghosts/blinky.png" /></td>
+            <td class="cell"><img src="images/ghosts/clyde.png" /></td>
+            <td class="cell"><img src="images/ghosts/inky.png" /></td>
+            <td class="cell"><img src="images/ghosts/pinky.png" /></td>
+            <td class="cell"><img src="images/pacman-right/1.png" /></td>
+          </tr>
+          <tr>
+            <td class="cell"><img src="images/floor/apple.png" /></td>
+            <td class="cell"><img src="images/floor/dot.png" /></td>
+            <td class="cell"><img src="images/floor/strawberry.png" /></td>
+            <td class="cell"></td>
+            <td class="cell"></td>
+          </tr>
+          <tr>
+            <td class="cell"></td>
+            <td class="cell"></td>
+            <td class="cell"></td>
+            <td class="cell"></td>
+            <td class="cell"></td>
+          </tr>
+          <tr>
+            <td class="cell"></td>
+            <td class="cell"></td>
+            <td class="cell"></td>
+            <td class="cell"></td>
+            <td class="cell"></td>
+          </tr>
+          <tr>
+            <td class="cell"></td>
+            <td class="cell"></td>
+            <td class="cell"></td>
+            <td class="cell"></td>
+            <td class="cell"></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <script src="js/walls.js"></script>
+    <script src="js/ghost.js"></script>
+    <script src="js/pacman.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

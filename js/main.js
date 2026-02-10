@@ -8,6 +8,7 @@ let gGameState = {
 
   addScore: function (amountToAdd) {
     this.score += amountToAdd
+    renderScore()
   },
   activateSuper: function () {
     this.isPacmanSuper = true
@@ -17,19 +18,25 @@ let gGameState = {
   },
   changeGameState: function (newState = this.isOn) {
     this.isOn = newState
+
+    if (newState === false) {
+      handleGameOver()
+    }
   },
 }
-let pacmanPos = { i: 23, j: 19 }
-const ghosts = [
-  { name: "blinky", pos: { i: 20, j: 21 }, cellContent: "dot" },
-  { name: "clyde", pos: { i: 8, j: 21 }, cellContent: "dot" },
-  { name: "inky", pos: { i: 5, j: 6 }, cellContent: "dot" },
-  { name: "pinky", pos: { i: 23, j: 6 }, cellContent: "dot" },
-]
+
+let pacmanPos
+let ghosts
 
 wallsCoords = getWalls()
-gBoard = createBoard(SIZE)
-renderBoard()
+let gameLoopIntervalId
+
+function startGameLoop() {
+  gameLoopIntervalId = setInterval(() => {
+    moveGhosts()
+    movePacman()
+  }, 150)
+}
 
 function createBoard(size) {
   const newBoard = []
@@ -66,7 +73,6 @@ function renderBoard() {
     for (let j = 0; j < SIZE.width; j++) {
       const currentCell = gBoard[i][j]
       if (currentCell.tileType === "floor" && currentCell?.ghost) {
-        console.log("there is ghost")
         boardHTML += `<td class="cell cell-${i}-${j} ${currentCell.tileType}">
             <img src="images/ghosts/${currentCell.ghost}.png" />
             </td>`
@@ -107,4 +113,34 @@ function renderCell(cellPos, content, frame, direction) {
   }
 
   cell.innerHTML = `<img src="images/floor/${content}.png" />`
+}
+
+function renderScore() {
+  document.querySelector(".score span").innerText = gGameState.score
+}
+
+function handleGameOver() {
+  document.querySelector(".game-over-modal").classList.remove("hidden")
+  document.querySelector(".modal-score span").innerText = gGameState.score
+
+  renderCell(pacmanPos, "empty")
+  clearInterval(gameLoopIntervalId)
+}
+
+function restartGame() {
+  clearInterval(gameLoopIntervalId)
+  gGameState.isOn = true
+  gGameState.score = 0
+  gGameState.isPacmanSuper = false
+  pacmanPos = { i: 23, j: 19 }
+  ghosts = [
+    { name: "blinky", pos: { i: 20, j: 21 }, cellContent: "dot" },
+    { name: "clyde", pos: { i: 8, j: 21 }, cellContent: "dot" },
+    { name: "inky", pos: { i: 5, j: 6 }, cellContent: "dot" },
+    { name: "pinky", pos: { i: 23, j: 6 }, cellContent: "dot" },
+  ]
+  gBoard = createBoard(SIZE)
+  renderBoard()
+  startGameLoop()
+  document.querySelector(".game-over-modal").classList.add("hidden")
 }

@@ -1,4 +1,5 @@
 body {
+  position: relative;
   background-color: black;
   color: white;
   text-align: center;
@@ -30,4 +31,38 @@ table {
   display: block;
   margin: auto;
   width: 25px;
+}
+
+.game-over-modal {
+  position: absolute;
+  width: 30%;
+  height: fit-content;
+  background-color: rgba(149, 255, 0, 0.633);
+  padding: 1.5rem;
+  top: 47%;
+  right: 33%;
+  border-radius: 7px;
+}
+
+.game-over-modal h1 {
+  font-size: 3rem;
+  margin: 0;
+  color: rgb(255, 0, 0);
+}
+
+.game-over-modal button {
+  border: none;
+  border-radius: 7px;
+  background-color: rgb(64, 0, 128);
+  color: white;
+  height: 25%;
+  padding: 0.7rem;
+  cursor: pointer;
+}
+.game-over-modal button:hover {
+  background-color: rgb(7, 145, 7);
+}
+
+.hidden {
+  display: none;
 }

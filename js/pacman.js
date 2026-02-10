@@ -1,9 +1,6 @@
-let pacmanMovementIntervalId
-
 let direction = { i: 1, j: 0 }
 let frame = 1
 let animationDirection = "left"
-pacmanMovementIntervalId = setInterval(movePacman, 150)
 
 function changeDirection(ev) {
   switch (ev.key) {
@@ -27,10 +24,21 @@ function changeDirection(ev) {
 }
 
 function movePacman() {
+  if (!gGameState.isOn) return
   if (gBoard[pacmanPos.i + direction.i][pacmanPos.j + direction.j].tileType === "wall") return
+
+  if (gBoard[pacmanPos.i + direction.i][pacmanPos.j + direction.j]?.ghost) {
+    gGameState.changeGameState(false)
+    return
+  }
+
+  handleScore(gBoard[pacmanPos.i + direction.i][pacmanPos.j + direction.j].item)
+
   genFrame()
+
   gBoard[pacmanPos.i][pacmanPos.j] = { tileType: "floor", item: "empty" }
   renderCell(pacmanPos, "empty")
+
   pacmanPos = { i: pacmanPos.i + direction.i, j: pacmanPos.j + direction.j }
   gBoard[pacmanPos.i][pacmanPos.j] = { tileType: "floor", item: "pacman" }
   renderCell(pacmanPos, "pacman", frame, animationDirection)
@@ -42,4 +50,11 @@ function genFrame() {
     return
   }
   frame++
+}
+
+function handleScore(item) {
+  if (item === "empty") return
+  if (item === "dot") gGameState.addScore(1)
+  if (item === "apple") gGameState.addScore(15)
+  if (item === "strawberry") gGameState.addScore(25)
 }

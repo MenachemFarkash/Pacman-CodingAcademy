@@ -1,6 +1,3 @@
-let ghostMovementIntervalId
-ghostMovementIntervalId = setInterval(moveGhosts, 250)
-
 function pickRandomDirection() {
   let randDirection = getRandomInt(0, 4)
   switch (randDirection) {
@@ -29,15 +26,19 @@ function moveGhosts() {
 }
 
 function moveGhost(ghost, ghostDirection) {
-  if (
-    gBoard[ghost.pos.i + ghostDirection.i][ghost.pos.j + ghostDirection.j].tileType === "wall" ||
-    gBoard[ghost.pos.i + ghostDirection.i][ghost.pos.j + ghostDirection.j]?.ghost
-  ) {
+  const nextPos = { i: ghost.pos.i + ghostDirection.i, j: ghost.pos.j + ghostDirection.j }
+  if (gBoard[nextPos.i][nextPos.j].tileType === "wall" || gBoard[nextPos.i][nextPos.j]?.ghost) {
+    return
+  }
+  if (gBoard[nextPos.i][nextPos.j].item === "pacman") {
+    handleGameOver()
     return
   }
   gBoard[ghost.pos.i][ghost.pos.j] = { tileType: "floor", item: ghost.cellContent }
   renderCell(ghost.pos, ghost.cellContent)
-  ghost.pos = { i: ghost.pos.i + ghostDirection.i, j: ghost.pos.j + ghostDirection.j }
+
+  ghost.cellContent = gBoard[nextPos.i][nextPos.j].item
+  ghost.pos = nextPos
   gBoard[ghost.pos.i][ghost.pos.j] = {
     tileType: "floor",
     item: ghost.cellContent,

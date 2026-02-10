@@ -7,10 +7,10 @@
 
     <title>Document</title>
   </head>
-  <body onkeydown="changeDirection(event)">
+  <body onload="restartGame()" onkeydown="changeDirection(event)">
     <section>
       <h1>PACMAN</h1>
-      <h2>SCORE: <span>0</span></h2>
+      <h2 class="score">SCORE: <span>0</span></h2>
     </section>
     <section class="game-container">
       <table>
@@ -52,6 +52,11 @@
           </tr>
         </tbody>
       </table>
+    </section>
+    <section class="game-over-modal hidden">
+      <h1>GAME OVER</h1>
+      <h2 class="modal-score">SCORE: <span>0</span></h2>
+      <button onclick="restartGame()">RESTART</button>
     </section>
 
     <script src="js/walls.js"></script>
